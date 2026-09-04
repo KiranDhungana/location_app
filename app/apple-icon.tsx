@@ -6,5 +6,7 @@ export const contentType = "image/webp";
 
 export default async function AppleIcon() {
   const file = await readFile(join(process.cwd(), "public", "logo.webp"));
-  return new Uint8Array(file);
+  return new Response(file, {
+    headers: { "Content-Type": "image/webp" },
+  });
 }
