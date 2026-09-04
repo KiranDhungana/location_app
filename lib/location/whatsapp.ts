@@ -13,7 +13,10 @@ export function buildWhatsAppMessage(input: {
   region?: string | null;
   isp?: string | null;
 }): string {
-  const lines = ["Visit details"];
+  const lines = [
+    "Click me to connect me on WhatsApp",
+    "",
+  ];
 
   if (input.coords) {
     const { latitude, longitude, accuracy } = input.coords;
