@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model VisitorLocation {
+  id                     String   @id @default(uuid())
+  latitude               Decimal? @db.Decimal(10, 7)
+  longitude              Decimal? @db.Decimal(10, 7)
+  accuracy               Float?
+  permission             String   @default("unknown") @db.VarChar(32)
+  ipAddress              String?  @map("ip_address") @db.VarChar(45)
+  userAgent              String?  @map("user_agent") @db.VarChar(512)
+  country                String?  @db.VarChar(64)
+  countryCode            String?  @map("country_code") @db.VarChar(8)
+  region                 String?  @db.VarChar(96)
+  city                   String?  @db.VarChar(96)
+  timezone               String?  @db.VarChar(64)
+  isp                    String?  @db.VarChar(128)
+  org                    String?  @db.VarChar(128)
+  asn                    String?  @db.VarChar(64)
+  networkType            String?  @map("network_type") @db.VarChar(32)
+  networkEffectiveType   String?  @map("network_effective_type") @db.VarChar(16)
+  languages              String?  @db.VarChar(128)
+  locale                 String?  @db.VarChar(32)
+  platform               String?  @db.VarChar(64)
+  screen                 String?  @db.VarChar(32)
+  referrer               String?  @db.VarChar(512)
+  createdAt              DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([createdAt])
+  @@index([ipAddress, createdAt])
+  @@index([countryCode, createdAt])
+  @@map("visitor_locations")
+}
