@@ -12,20 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-function resolveSiteUrl() {
-  const candidates = [
-    process.env.NEXT_PUBLIC_APP_URL,
-    process.env.URL,
-  ];
-  for (const candidate of candidates) {
-    if (candidate && !/localhost|127\.0\.0\.1/i.test(candidate)) {
-      return candidate;
-    }
-  }
-  return "https://connect-to-me.netlify.app";
-}
-
-const siteUrl = resolveSiteUrl();
+const siteUrl = "https://connect-to-me.netlify.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,15 +25,16 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "/",
+    url: siteUrl,
     siteName: "Connect with me",
     title: "Click me to connect me on WhatsApp",
     description: "Tap here to connect with me on WhatsApp.",
     images: [
       {
-        url: "/opengraph-image",
+        url: `${siteUrl}/og.png`,
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Click me to connect me on WhatsApp",
       },
     ],
@@ -55,6 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Click me to connect me on WhatsApp",
     description: "Tap here to connect with me on WhatsApp.",
+    images: [`${siteUrl}/og.png`],
   },
 };
 
